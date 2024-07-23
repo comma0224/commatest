@@ -1,4 +1,4 @@
-package com.example.comma;
+package com.comma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
