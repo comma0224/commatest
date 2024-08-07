@@ -11,7 +11,7 @@ public class commonController {
 
     @GetMapping("comma")
     public String comma(Model model) {
-        model.addAttribute("data", "ㅎㅇㅎㅇ");
+        model.addAttribute("data", "ㅎㅇㅎㅇ!!");
 
         return  "index";
     }
