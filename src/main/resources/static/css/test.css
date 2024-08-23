@@ -1,0 +1,45 @@
+.test-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    width: 60vh;
+    text-align: center;
+    margin: auto;
+}
+.test-result-container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.strong {
+    font-weight: bolder;
+    font-size: 2em;
+    user-select: none;
+}
+.small {
+    font-size: 0.875em;
+    user-select: none;
+}
+
+.default-screen {
+    background-color: #9A76AB;
+}
+
+.ready-screen {
+    background-color: #bbffbb;
+}
+
+.test-screen {
+    background-color: #6666ff;
+}
+
+.error-screen {
+    background-color: #E8AEB7;
+}
+
+.result-screen {
+    background-color: #955cdb;
+}

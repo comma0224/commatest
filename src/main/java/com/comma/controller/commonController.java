@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class commonController {
 
+    @GetMapping("/")
+    public String index(Model model) {
+
+        return  "index";
+    }
+
     @GetMapping("comma")
     public String comma(Model model) {
         model.addAttribute("data", "ㅎㅇㅎㅇ!!");
 
         return  "index";
-    }
-
-    @GetMapping("hello-mvc")
-    public String helloMvc(@RequestParam("name") String name, Model model) {
-        model.addAttribute("name",name);
-        return "hello-mvc";
     }
 
     @GetMapping("hello-string")

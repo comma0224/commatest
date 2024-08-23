@@ -1,0 +1,17 @@
+.menuList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 65%;
+    margin: auto;
+}
+
+.box {
+    border: 2px solid rgba(154, 118, 171, 0.7);
+    height: 100px;
+    margin: 10px;
+    flex: 1 1 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

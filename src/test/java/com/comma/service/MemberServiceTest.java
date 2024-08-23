@@ -34,7 +34,6 @@ class MemberServiceTest {
         member2.setName("TestName");
 
         memberService.join(member1);
-        assertThr
 
         /*
         try {

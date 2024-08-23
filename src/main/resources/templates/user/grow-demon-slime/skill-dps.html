@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<!-- 현재 화면에서만 사용하는 css -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap5.min.css}">
+    <link rel="stylesheet" th:href="@{/css/fixedColumns.bootstrap5.min.css}">
+    <link rel="stylesheet" th:href="@{/css/grow-demon-slime.css}">
+</th:block>
+
+<!-- 현재 화면에서만 사용하는 js -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/dataTables.min.js}"></script>
+    <script th:src="@{/js/dataTables.bootstrap5.min.js}"></script>
+    <script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
+    <script th:src="@{/js/fixedColumns.bootstrap5.min.js}"></script>
+    <script th:src="@{/js/grow-demon-slime.js}"></script>
+</th:block>
+
+<body>
+<div layout:fragment="content" class="gridArea">
+    <div id="alertMessage mb-3">
+        * [춤추는 칼], [가시 럴커] 스킬의 경우에는 소형보스 기준 타수가 적용 되어있습니다.
+    </div>
+    <table id="datatables" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+        <tr id="header-row">
+            <th>Name</th>
+            <th>Default</th>
+            <th>Growth</th>
+            <th>Hits</th>
+            <th>Cool</th>
+            <th>100</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터가 여기에 추가됩니다 -->
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
