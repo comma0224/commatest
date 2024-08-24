@@ -82,13 +82,17 @@ function sortRelicsContainer() {
 
 function getCombinations(arr, n) {
     var result = []; // 결과를 저장할 배열을 초기화합니다.
+
     var f = function(prefix, arr) { // 재귀적으로 호출될 내부 함수를 정의합니다.
         for (var i = 0; i < arr.length; i++) { // 배열의 각 요소에 대해 반복합니다.
-            if (prefix.length === n - 1) { // 현재 조합의 길이가 n-1이면,        result.push(prefix.concat(arr[i])); // 현재 요소를 추가하여 결과 배열에 추가합니다.
-            } else { // 그렇지 않으면,        f(prefix.concat(arr[i]), arr.slice(i + 1)); // 현재 요소를 추가하고 나머지 요소들로 재귀 호출합니다.
+            if (prefix.length === n - 1) { // 현재 조합의 길이가 n-1이면,
+                result.push(prefix.concat(arr[i])); // 현재 요소를 추가하여 결과 배열에 추가합니다.
+            } else { // 그렇지 않으면,
+                f(prefix.concat(arr[i]), arr.slice(i + 1)); // 현재 요소를 추가하고 나머지 요소들로 재귀 호출합니다.
             }
         }
     };
+
     f([], arr); // 빈 배열과 주어진 배열로 내부 함수를 처음 호출합니다.
 
     // 5f 유물이 포함된 조합을 필터링하고, 5f 유물만 포함된 조합을 추가합니다.

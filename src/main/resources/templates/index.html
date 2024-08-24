@@ -3,12 +3,16 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
+
+<head>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+        <!--<link rel="stylesheet" type="text/css" href="main.css"/>-->
+    </th:block>
+</head>
+
 <body>
 <!-- 현재 화면에서만 사용하는 css -->
-<th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/index.css}">
-    <!--<link rel="stylesheet" type="text/css" href="main.css"/>-->
-</th:block>
 
 <!-- 현재 화면에서만 사용하는 js -->
 <!--<th:block layout:fragment="script">-->

@@ -5,12 +5,13 @@
       layout:decorate="~{layout/layout}">
 
 <!-- 현재 화면에서만 사용하는 css -->
-<th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap5.min.css}">
-    <link rel="stylesheet" th:href="@{/css/fixedColumns.bootstrap5.min.css}">
-    <link rel="stylesheet" th:href="@{/css/grow-demon-slime.css}">
-</th:block>
-
+<head>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap5.min.css}">
+        <link rel="stylesheet" th:href="@{/css/fixedColumns.bootstrap5.min.css}">
+        <link rel="stylesheet" th:href="@{/css/grow-demon-slime.css}">
+    </th:block>
+</head>
 <!-- 현재 화면에서만 사용하는 js -->
 <th:block layout:fragment="script">
     <script th:src="@{/js/dataTables.min.js}"></script>
