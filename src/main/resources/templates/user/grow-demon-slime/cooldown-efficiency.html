@@ -22,10 +22,13 @@
 
 <body>
 <div layout:fragment="content" class="gridArea">
-    <div id="alertMessage mb-3">
+    <div class="h1 mt-3">
+        쿨타임 감소 효율 표
+    </div>
+    <div id="alertMessage" class="mb-3">
         * 기본 쿨타임감소 10% 부터 최대 쿨타임감소 60% 까지의 효율을 계산합니다.
     </div>
-    <table id="datatables" class="table table-striped table-bordered" style="width:100%">
+    <table id="datatables" class="table table-striped table-bordered datatables" style="width:100%">
         <thead>
         <tr id="header-row">
             <th>cooldown</th>

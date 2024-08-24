@@ -3,9 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<head th:replace="fragments/config :: config"></head>
+<head th:replace="~{fragments/config :: config}"></head>
 <body>
-<div th:replace="fragments/nav :: nav"></div>
+<div th:replace="~{fragments/nav :: nav}"></div>
 
 <th:block layout:fragment="content"></th:block>
 </body>

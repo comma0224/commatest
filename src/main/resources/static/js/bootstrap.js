@@ -16,8 +16,7 @@
         if (k !== 'default') {
           const d = Object.getOwnPropertyDescriptor(e, k);
           Object.defineProperty(n, k, d.get ? d : {
-            enumerable: true,
-            get: () => e[k]
+            enumerable: true,    get: () => e[k]
           });
         }
       }
@@ -513,8 +512,7 @@
         defaultPrevented = jQueryEvent.isDefaultPrevented();
       }
       const evt = hydrateObj(new Event(event, {
-        bubbles,
-        cancelable: true
+        bubbles,cancelable: true
       }), args);
       if (defaultPrevented) {
         evt.preventDefault();
@@ -534,8 +532,7 @@
         obj[key] = value;
       } catch (_unused) {
         Object.defineProperty(obj, key, {
-          configurable: true,
-          get() {
+          configurable: true,  get() {
             return value;
           }
         });
@@ -637,10 +634,7 @@
       const jsonConfig = isElement(element) ? Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
 
       return {
-        ...this.constructor.Default,
-        ...(typeof jsonConfig === 'object' ? jsonConfig : {}),
-        ...(isElement(element) ? Manipulator.getDataAttributes(element) : {}),
-        ...(typeof config === 'object' ? config : {})
+        ...this.constructor.Default,...(typeof jsonConfig === 'object' ? jsonConfig : {}),...(isElement(element) ? Manipulator.getDataAttributes(element) : {}),...(typeof config === 'object' ? config : {})
       };
     }
     _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
@@ -1294,9 +1288,7 @@
         this.touchTimeout = setTimeout(() => this._maybeEnableCycle(), TOUCHEVENT_COMPAT_WAIT + this._config.interval);
       };
       const swipeConfig = {
-        leftCallback: () => this._slide(this._directionToOrder(DIRECTION_LEFT)),
-        rightCallback: () => this._slide(this._directionToOrder(DIRECTION_RIGHT)),
-        endCallback: endCallBack
+        leftCallback: () => this._slide(this._directionToOrder(DIRECTION_LEFT)),rightCallback: () => this._slide(this._directionToOrder(DIRECTION_RIGHT)),endCallback: endCallBack
       };
       this._swipeHelper = new Swipe(this._element, swipeConfig);
     }
@@ -1347,10 +1339,7 @@
       const nextElementIndex = this._getItemIndex(nextElement);
       const triggerEvent = eventName => {
         return EventHandler.trigger(this._element, eventName, {
-          relatedTarget: nextElement,
-          direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
-          to: nextElementIndex
+          relatedTarget: nextElement,  direction: this._orderToDirection(order),  from: this._getItemIndex(activeElement),  to: nextElementIndex
         });
       };
       const slideEvent = triggerEvent(EVENT_SLIDE);
@@ -1936,15 +1925,12 @@
     }
     _getPopperConfig() {
       const defaultBsPopperConfig = {
-        placement: this._getPlacement(),
-        modifiers: [{
-          name: 'preventOverflow',
-          options: {
+        placement: this._getPlacement(),modifiers: [{
+          name: 'preventOverflow',  options: {
             boundary: this._config.boundary
           }
         }, {
-          name: 'offset',
-          options: {
+          name: 'offset',  options: {
             offset: this._getOffset()
           }
         }]
@@ -1954,13 +1940,11 @@
       if (this._inNavbar || this._config.display === 'static') {
         Manipulator.setDataAttribute(this._menu, 'popper', 'static'); // TODO: v6 remove
         defaultBsPopperConfig.modifiers = [{
-          name: 'applyStyles',
-          enabled: false
+          name: 'applyStyles',  enabled: false
         }];
       }
       return {
-        ...defaultBsPopperConfig,
-        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+        ...defaultBsPopperConfig,...execute(this._config.popperConfig, [defaultBsPopperConfig])
       };
     }
     _selectMenuItem({
@@ -2513,9 +2497,7 @@
     // Private
     _initializeBackDrop() {
       return new Backdrop({
-        isVisible: Boolean(this._config.backdrop),
-        // 'static' option will be translated to true, and booleans will keep their value,
-        isAnimated: this._isAnimated()
+        isVisible: Boolean(this._config.backdrop),// 'static' option will be translated to true, and booleans will keep their value,isAnimated: this._isAnimated()
       });
     }
     _initializeFocusTrap() {
@@ -2840,11 +2822,7 @@
       // 'static' option will be translated to true, and booleans will keep their value
       const isVisible = Boolean(this._config.backdrop);
       return new Backdrop({
-        className: CLASS_NAME_BACKDROP,
-        isVisible,
-        isAnimated: true,
-        rootElement: this._element.parentNode,
-        clickCallback: isVisible ? clickCallback : null
+        className: CLASS_NAME_BACKDROP,isVisible,isAnimated: true,rootElement: this._element.parentNode,clickCallback: isVisible ? clickCallback : null
       });
     }
     _initializeFocusTrap() {
@@ -3091,8 +3069,7 @@
     changeContent(content) {
       this._checkContent(content);
       this._config.content = {
-        ...this._config.content,
-        ...content
+        ...this._config.content,...content
       };
       return this;
     }
@@ -3118,8 +3095,7 @@
     _checkContent(arg) {
       for (const [selector, content] of Object.entries(arg)) {
         super._typeCheckConfig({
-          selector,
-          entry: content
+          selector,  entry: content
         }, DefaultContentType);
       }
     }
@@ -3434,11 +3410,9 @@
         this._templateFactory.changeContent(content);
       } else {
         this._templateFactory = new TemplateFactory({
-          ...this._config,
-          // the `content` var has to be after `this._config`
+          ...this._config,  // the `content` var has to be after `this._config`
           // to override config.content in case of popover
-          content,
-          extraClass: this._resolvePossibleFunction(this._config.customClass)
+          content,  extraClass: this._resolvePossibleFunction(this._config.customClass)
         });
       }
       return this._templateFactory;
@@ -3484,32 +3458,24 @@
     }
     _getPopperConfig(attachment) {
       const defaultBsPopperConfig = {
-        placement: attachment,
-        modifiers: [{
-          name: 'flip',
-          options: {
+        placement: attachment,modifiers: [{
+          name: 'flip',  options: {
             fallbackPlacements: this._config.fallbackPlacements
           }
         }, {
-          name: 'offset',
-          options: {
+          name: 'offset',  options: {
             offset: this._getOffset()
           }
         }, {
-          name: 'preventOverflow',
-          options: {
+          name: 'preventOverflow',  options: {
             boundary: this._config.boundary
           }
         }, {
-          name: 'arrow',
-          options: {
+          name: 'arrow',  options: {
             element: `.${this.constructor.NAME}-arrow`
           }
         }, {
-          name: 'preSetPlacement',
-          enabled: true,
-          phase: 'beforeMain',
-          fn: data => {
+          name: 'preSetPlacement',  enabled: true,  phase: 'beforeMain',  fn: data => {
             // Pre-set Popper's placement attribute in order to read the arrow sizes properly.
             // Otherwise, Popper mixes up the width and height dimensions since the initial arrow style is for top placement
             this._getTipElement().setAttribute('data-popper-placement', data.state.placement);
@@ -3517,8 +3483,7 @@
         }]
       };
       return {
-        ...defaultBsPopperConfig,
-        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+        ...defaultBsPopperConfig,...execute(this._config.popperConfig, [defaultBsPopperConfig])
       };
     }
     _setListeners() {
@@ -3600,8 +3565,7 @@
         }
       }
       config = {
-        ...dataAttributes,
-        ...(typeof config === 'object' && config ? config : {})
+        ...dataAttributes,...(typeof config === 'object' && config ? config : {})
       };
       config = this._mergeConfigObj(config);
       config = this._configAfterMerge(config);
@@ -3612,8 +3576,7 @@
       config.container = config.container === false ? document.body : getElement(config.container);
       if (typeof config.delay === 'number') {
         config.delay = {
-          show: config.delay,
-          hide: config.delay
+          show: config.delay,  hide: config.delay
         };
       }
       if (typeof config.title === 'number') {
@@ -3723,8 +3686,7 @@
     // Private
     _getContentForTemplate() {
       return {
-        [SELECTOR_TITLE]: this._getTitle(),
-        [SELECTOR_CONTENT]: this._getContent()
+        [SELECTOR_TITLE]: this._getTitle(),[SELECTOR_CONTENT]: this._getContent()
       };
     }
     _getContent() {
@@ -3814,8 +3776,7 @@
       this._activeTarget = null;
       this._observer = null;
       this._previousScrollData = {
-        visibleEntryTop: 0,
-        parentScrollTop: 0
+        visibleEntryTop: 0,parentScrollTop: 0
       };
       this.refresh(); // initialize
     }
@@ -3876,8 +3837,7 @@
           const height = observableSection.offsetTop - this._element.offsetTop;
           if (root.scrollTo) {
             root.scrollTo({
-              top: height,
-              behavior: 'smooth'
+              top: height,      behavior: 'smooth'
             });
             return;
           }
@@ -3889,9 +3849,7 @@
     }
     _getNewObserver() {
       const options = {
-        root: this._rootElement,
-        threshold: this._config.threshold,
-        rootMargin: this._config.rootMargin
+        root: this._rootElement,threshold: this._config.threshold,rootMargin: this._config.rootMargin
       };
       return new IntersectionObserver(entries => this._observerCallback(entries), options);
     }

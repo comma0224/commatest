@@ -45,10 +45,7 @@ function calculateAllCombinations() {
 
     combinations.forEach(function(combination) {
         var resultDPS = relicsSetResult(
-            "relics-" + combination[0],
-            "relics-" + combination[1],
-            "relics-" + combination[2],
-            "relics-" + combination[3]
+            "relics-" + combination[0],    "relics-" + combination[1],    "relics-" + combination[2],    "relics-" + combination[3]
         );
         var resultDPSBydefaultDPS = (resultDPS / defaultDPS * 100).toFixed(2) + "%";
 
@@ -57,10 +54,7 @@ function calculateAllCombinations() {
         });
 
         results.push({
-            name: relicNames.join('-'),
-            key: combination.join('-'),
-            value: resultDPSBydefaultDPS,
-            use: 1
+            name: relicNames.join('-'),    key: combination.join('-'),    value: resultDPSBydefaultDPS,    use: 1
         });
     });
 
@@ -90,10 +84,8 @@ function getCombinations(arr, n) {
     var result = []; // 결과를 저장할 배열을 초기화합니다.
     var f = function(prefix, arr) { // 재귀적으로 호출될 내부 함수를 정의합니다.
         for (var i = 0; i < arr.length; i++) { // 배열의 각 요소에 대해 반복합니다.
-            if (prefix.length === n - 1) { // 현재 조합의 길이가 n-1이면,
-                result.push(prefix.concat(arr[i])); // 현재 요소를 추가하여 결과 배열에 추가합니다.
-            } else { // 그렇지 않으면,
-                f(prefix.concat(arr[i]), arr.slice(i + 1)); // 현재 요소를 추가하고 나머지 요소들로 재귀 호출합니다.
+            if (prefix.length === n - 1) { // 현재 조합의 길이가 n-1이면,        result.push(prefix.concat(arr[i])); // 현재 요소를 추가하여 결과 배열에 추가합니다.
+            } else { // 그렇지 않으면,        f(prefix.concat(arr[i]), arr.slice(i + 1)); // 현재 요소를 추가하고 나머지 요소들로 재귀 호출합니다.
             }
         }
     };
@@ -120,9 +112,7 @@ function getContainerData(container) {
         var inputValue = parseFloat(input.val());
 
         data[inputId] = {
-            name: spanText,
-            key: inputId,
-            value: inputValue
+            name: spanText,    key: inputId,    value: inputValue
         };
     });
     return data;
@@ -261,6 +251,12 @@ function relicsSetResult(relics1, relics2, relics3, relics4) {
     var seletedFamiliar = topNFamiliarDPS.reduce(function (sum, familiar) { return sum + familiar.totalDPS; }, 0);
 
     var finalDPS = seletedSkill + seletedFamiliar;
+
+
+    console.log("finalDPS", finalDPS);
+    console.log("finalDPS By seletedSkill", seletedSkill/finalDPS);
+    console.log("finalDPS By seletedFamiliar", seletedFamiliar/finalDPS);
+
     return finalDPS;
 }
 
@@ -292,9 +288,7 @@ function calculateValue(specData, skillData, familiarData, dataSetSkill, dataSet
         var totalDPS = userSkillSpec * damage * parseFloat(item.hits) / cooldown;
 
         return {
-            "name": item.name,
-            "key": item.key,
-            "totalDPS": totalDPS
+            "name": item.name,    "key": item.key,    "totalDPS": totalDPS
         };
     });
 
@@ -310,9 +304,7 @@ function calculateValue(specData, skillData, familiarData, dataSetSkill, dataSet
         var totalDPS = userFamiliarSpec * damage * parseFloat(item.hits) / cooldown;
 
         return {
-            "name": item.name,
-            "key": item.key,
-            "totalDPS": totalDPS
+            "name": item.name,    "key": item.key,    "totalDPS": totalDPS
         };
     });
 
@@ -321,9 +313,9 @@ function calculateValue(specData, skillData, familiarData, dataSetSkill, dataSet
         return b.totalDPS - a.totalDPS;
     });
 
+
     var totalDPS = {
-        totalSkillDPS: totalSkillDPS,
-        totalFamiliarDPS: totalFamiliarDPS
+        totalSkillDPS: totalSkillDPS,totalFamiliarDPS: totalFamiliarDPS
     };
 
     return totalDPS;
@@ -342,24 +334,19 @@ function createInputGroup(container, items) {
             var div = $('<div>', { class: 'input-group input-group-sm' });
 
             var span = $('<span>', {
-                class: 'input-group-text tier-' + item.tiers + ' col-8',
-                id: 'inputGroup-sizing-sm'
+                class: 'input-group-text tier-' + item.tiers + ' col-8',        id: 'inputGroup-sizing-sm'
             });
 
             if (containerId === 'spec' || containerId === 'relicsDPS') {
                 var img = $('<img>', {
-                    src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-                    class: 'imgNoneStyle',
-                    alt: item.name
+                    src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',            class: 'imgNoneStyle',            alt: item.name
                 });
                 span.append(img).append(item.name);
                 id = item.key;
                 name = item.key;
             } else {
                 var img = $('<img>', {
-                    src: imagePath + item.key.substring(0, 2) + '.png',
-                    class: 'imgStyle',
-                    alt: item.name
+                    src: imagePath + item.key.substring(0, 2) + '.png',            class: 'imgStyle',            alt: item.name
                 });
                 span.append(img).append(item.name);
                 id = containerId + "-" + item.key;
@@ -367,14 +354,7 @@ function createInputGroup(container, items) {
             }
 
             var input = $('<input>', {
-                type: inputType,
-                class: 'form-control',
-                'aria-label': 'Sizing input',
-                'aria-describedby': 'inputGroup-sizing-sm',
-                name: name,
-                id: id,
-                value: item.value,
-                max: max
+                type: inputType,        class: 'form-control',        'aria-label': 'Sizing input',        'aria-describedby': 'inputGroup-sizing-sm',        name: name,        id: id,        value: item.value,        max: max
             });
 
             if (containerId === 'relics' || containerId === 'relicsDPS') {

@@ -40,3 +40,6 @@ html, body {
     opacity: 0.65;
 }
 
+.changeColumn {
+    background-color: #E8AEB7 !important;
+}

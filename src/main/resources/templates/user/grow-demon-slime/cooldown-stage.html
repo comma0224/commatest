@@ -23,20 +23,46 @@
 <body>
 <div layout:fragment="content" class="gridArea">
     <div class="h1 mt-3">
-        스킬 DPS
+        쿨타임 별 스킬 타격 횟수 (20초 기준)
     </div>
     <div id="alertMessage" class="mb-3">
-        * [춤추는 칼], [가시 럴커] 스킬의 경우에는 소형보스 기준 타수가 적용 되어있습니다.
+        * 기본 쿨타임감소 10% 부터 쿨타임감소가 0.01% 늘어날때 마다 타수가 변경 되는 지점을 계산합니다.
     </div>
-    <table id="datatables" class="table table-striped table-bordered datatables" style="width:100%">
+    <table id="datatables1" class="table table-striped table-bordered datatables" style="width:100%">
         <thead>
         <tr id="header-row">
-            <th>Name</th>
-            <th>Default</th>
-            <th>Growth</th>
-            <th>Hits</th>
-            <th>Cool</th>
-            <th>100</th>
+            <th>cooldown</th>
+            <th>5a</th>
+            <th>5b</th>
+            <th>5c</th>
+            <th>6a</th>
+            <th>6b</th>
+            <th>6c</th>
+            <th>7a</th>
+            <th>7b</th>
+            <th>7c</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터가 여기에 추가됩니다 -->
+        </tbody>
+    </table>
+    <div class="h1 mt-3">
+        쿨타임 별 스킬 타격 횟수 (30초 기준)
+    </div>
+    <table id="datatables2" class="table table-striped table-bordered datatables" style="width:100%">
+        <thead>
+        <tr id="header-row">
+            <th>cooldown</th>
+            <th>5a</th>
+            <th>5b</th>
+            <th>5c</th>
+            <th>6a</th>
+            <th>6b</th>
+            <th>6c</th>
+            <th>7a</th>
+            <th>7b</th>
+            <th>7c</th>
         </tr>
         </thead>
         <tbody>
