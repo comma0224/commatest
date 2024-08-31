@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+
+<!-- 현재 화면에서만 사용하는 css -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/test.css}">
+</th:block>
+
+<!-- 현재 화면에서만 사용하는 js -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/content/test/reaction-test.js}"></script>
+</th:block>
+
+<div layout:fragment="content" class="container">
+    <div class="h1 mt-3">
+        반응속도 테스트
+    </div>
+    <div id="testContainer" class="test-container default-screen">
+        <div class="strong">테스트를 시작하시려면 클릭하세요.</div>
+        <div class="small">배경 화면이 초록색에서 보라색으로 변할때 클릭하시면 됩니다.</div>
+    </div>
+    <div id="testResultContainer" class="test-result-container mt-3"></div>
+</div>
+</body>
+</html>

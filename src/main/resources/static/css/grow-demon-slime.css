@@ -55,45 +55,37 @@
     margin-right: 10px;
 }
 
-.gridArea {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin: auto;
-}
-
-.datatables th, .datatables td {
+#datatables th, #datatables td {
     white-space: nowrap;
 }
 
-/* Update CSS selectors to apply only within the DataTable element */
-.datatables th, .datatables td {
-    white-space: nowrap;
+#datatables tbody tr td:nth-child(1) {
+    text-align: left !important;
 }
-
-.datatables tbody tr {
+#datatables tbody tr td:nth-child(n+2) {
+    text-align: right !important;
+}
+#datatables tbody tr,
+#datatables_20 tbody tr,
+#datatables_30 tbody tr{
     font-size: 0.8em; /* 글자 크기 조정 */
 }
-
-.datatables tbody tr td:nth-child(n+2) {
-    text-align: right; /* 데이터 정렬을 오른쪽으로 설정 */
+#datatables tbody tr td,
+#datatables_20 tbody tr td,
+#datatables_30 tbody tr td {
+    text-align: center
 }
 
-#datatables1 tbody tr td:nth-child(n+2),
-#datatables2 tbody tr td:nth-child(n+2) {
-    text-align: center !important;
-}
 
-.datatables thead th {
-    text-align: center;
-}
 
 #alertMessage {
     color: #dd3333;
 }
 
 /* 테이블 테두리를 위한 CSS 클래스 정의 */
-#datatables_wrapper {
+#datatables_wrapper,
+#datatables_20_wrapper,
+#datatables_30_wrapper {
     border: 1px solid #5d3a86;
     border-collapse: collapse; /* 테두리 겹침 설정 */
 }

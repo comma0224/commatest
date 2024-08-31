@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="nav" class="navbar navbar-expand-lg bg-body-softpurple" aria-label="Eleventh navbar example">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Comma</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+<nav th:fragment="nav" class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container px-3">
+        <a class="navbar-brand" href="/">콤마</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasLabel">Comma</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body pt-0 align-items-center">
+                <ul class="navbar-nav mx-auto align-items-lg-center" id="dynamicMenu"></ul>
 
-        <div class="collapse navbar-collapse" id="navbarsExample09">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="dynamicMenu">
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="#">Link</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item dropdown">-->
-<!--                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>-->
-<!--                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-<!--                        <li><a class="dropdown-item" href="#">Action</a></li>-->
-<!--                        <li><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-
-            </ul>
-<!--            <form role="search">-->
-<!--                <input class="form-control" type="search" placeholder="Search" aria-label="Search">-->
-<!--            </form>-->
+<!--                <div class="mt-3 mt-lg-0 d-flex align-items-center">-->
+<!--                    <a href="/member-login" class="btn btn-light mx-2">로그인</a>-->
+<!--                    <a href="/member-register" class="btn btn-primary">회원 가입</a>-->
+<!--                </div>-->
+                <div class="mt-3 mt-lg-0 d-flex align-items-center">
+                    <a th:if="${session.isLoggedIn}" href="/member-logout" class="btn btn-light mx-2">로그아웃</a>
+                    <a th:if="${session.isLoggedIn}" href="/member-info" class="btn btn-primary">내정보</a>
+                    <a th:unless="${session.isLoggedIn}" href="/member-login" class="btn btn-light mx-2">로그인</a>
+                    <a th:unless="${session.isLoggedIn}" href="/member-register" class="btn btn-primary">회원 가입</a>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
-
 </body>
 </html>

@@ -1,14 +1,13 @@
 package com.comma.repository;
 
 import com.comma.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository {
-    Member save(Member member);
-    Optional<Member> findById(Long id);
-    Optional<Member> findByName(String name);
-    List<Member> findAll();
-
+public interface MemberRepository extends JpaRepository<Member, String> {
+    boolean existsByMemberCode(String memberCode);
+    Optional<Member> findByMemberId(String memberId);
+    boolean existsByEmail(String email);
+    boolean existsByMemberId(String memberId);
 }

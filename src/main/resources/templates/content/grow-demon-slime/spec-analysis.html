@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<!-- 현재 화면에서만 사용하는 css -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/grow-demon-slime.css}">
+</th:block>
+
+<!-- 현재 화면에서만 사용하는 js -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/content/grow-demon-slime/relics.js}"></script>
+    <script th:src="@{/js/content/grow-demon-slime/spec-analysis.js}"></script>
+</th:block>
+
+<body>
+<div layout:fragment="content" class="container">
+    <div class="h1 mt-3">
+        스펙 분석
+    </div>
+    <div class="row row-cols-1 row-cols-md-3">
+        <div id="spec-container" class="col">
+            <div>상세스펙(유물 안낀 기준 입력)</div>
+        </div>
+        <div id="skill-container" class="col">
+            <div>스킬</div>
+        </div>
+        <div id="familiar-container" class="col">
+            <div>사역마</div>
+        </div>
+
+    </div>
+    <div class="d-flex align-items-center">
+        <h4 class="m-0">유물 세트 별 DPS 계산</h4>
+        <button id="relics-dps-button" class="btn btn-primary">계산</button>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2">
+    <div id="relics-container" class="col">
+        <h6>유물 별 DPS 증가량 (max 레벨 기준)</h6>
+    </div>
+    <div class="col">
+
+        <h6>유물 Set DPS</h6>
+        <div id="relicsDPS-container"></div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/member/member.js}"></script>
+    <script th:src="@{/js/member/member-info.js}"></script>
+</th:block>
+
+<body>
+<div layout:fragment="content" class="container">
+    <div class="h1 mt-3">
+        회원 정보
+    </div>
+
+    <div class="row flex-column align-items-center">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    회원 정보 수정
+                </h4>
+                <div class="card-text">
+                    <form id="updateMember" th:object="${member}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="updateMemberName" class="form-label">
+                                이름
+                            </label>
+                            <input type="text" class="form-control" id="updateMemberName" required th:field="*{memberName}">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateMemberNickname" class="form-label">
+                                별명
+                            </label>
+                            <input type="text" class="form-control" id="updateMemberNickname" required th:field="*{memberNickname}">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEmail" class="form-label">
+                                이메일
+                            </label>
+                            <div class="input-group has-validation mb-3">
+                                <input type="email" class="form-control" id="updateEmail" required th:field="*{email}">
+                                <button class="btn btn-outline-primary" type="button" id="emailVerified">인증하기</button>
+                                <div class="feedback"></div>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateDateOfBirth" class="form-label">
+                                생일
+                            </label>
+                            <input type="date" class="form-control" id="updateDateOfBirth" required th:field="*{dateOfBirth}" max="9999-12-31">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updatePhoneNumber" class="form-label">
+                                핸드폰 번호
+                            </label>
+                            <input type="text" class="form-control" id="updatePhoneNumber" required th:field="*{phoneNumber}">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateGender" class="form-label">
+                                성별
+                            </label>
+                            <div class="mb-3">
+                                <select class="form-select" id="updateGender" required th:field="*{gender}">
+                                    <option value="">선택해주세요.</option>
+                                    <option value='male'>남자</option>
+                                    <option value='female'>여자</option>
+                                </select>
+                                <div class="feedback"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">회원 정보 수정</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    비밀번호 변경
+                </h4>
+                <div class="card-text">
+                    <form id="updatePassword" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="checkPasswordHash" class="form-label">
+                                현재 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="checkPasswordHash">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modifyPasswordHash" class="form-label">
+                                변경 할 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="modifyPasswordHash">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modifyConfirmPasswordHash" class="form-label">
+                                변경 할 비밀번호 확인
+                            </label>
+                            <input type="password" class="form-control" required id="modifyConfirmPasswordHash">
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">비밀번호 변경</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    회원 탈퇴
+                </h4>
+                <div class="card-text">
+                    <form id="deleteMember" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="deletePasswordHash" class="form-label">
+                                현재 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="deletePasswordHash">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">탈퇴하기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

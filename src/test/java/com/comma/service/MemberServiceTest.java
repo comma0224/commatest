@@ -1,54 +1,114 @@
+// MemberServiceTest.java
 package com.comma.service;
 
 import com.comma.domain.Member;
+import com.comma.repository.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-class MemberServiceTest {
+public class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    @Mock
+    private MemberRepository memberRepository;
 
-    @Test
-    void join() {
-        //given
-        Member member = new Member();
-        member.setName("SunJae");
+    @InjectMocks
+    private MemberService memberService;
 
-        // when
-        Long saveId = memberService.join(member);
-
-        // then
-        Member findMember = memberService.findOne(saveId).get();
-        assertThat(member.getName()).isEqualTo(findMember.getName());
-
-
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void 중복_회원_예제() {
-        Member member1= new Member();
-        member1.setName("TestName");
+    public void testRegisterMember_Success() throws Exception {
+        // Arrange
+        String memberId = "testUser";
+        String passwordHash = "Test@1234";
+        when(memberRepository.existsById(memberId)).thenReturn(false);
+        when(memberRepository.existsByMemberCode(any())).thenReturn(false);
 
-        Member member2 = new Member();
-        member2.setName("TestName");
+        // Act
+        memberService.registerMember(memberId, passwordHash);
 
-        memberService.join(member1);
-
-        /*
-        try {
-            memberService.join(member2);
-        } catch (IllegalStateException e) {
-            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-        }
-*/
+        // Assert
+        verify(memberRepository, times(1)).save(any(Member.class));
     }
 
     @Test
-    void findMembers() {
+    public void testRegisterMember_MemberIdNull() {
+        // Arrange
+        String memberId = null;
+        String passwordHash = "Test@1234";
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
     }
 
     @Test
-    void findOne() {
+    public void testRegisterMember_MemberIdEmpty() {
+        // Arrange
+        String memberId = "";
+        String passwordHash = "Test@1234";
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
+    }
+
+    @Test
+    public void testRegisterMember_InvalidMemberId() {
+        // Arrange
+        String memberId = "user";
+        String passwordHash = "Test@1234";
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
+    }
+
+    @Test
+    public void testRegisterMember_PasswordHashNull() {
+        // Arrange
+        String memberId = "testUser";
+        String passwordHash = null;
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
+    }
+
+    @Test
+    public void testRegisterMember_PasswordHashEmpty() {
+        // Arrange
+        String memberId = "testUser";
+        String passwordHash = "";
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
+    }
+
+    @Test
+    public void testRegisterMember_InvalidPasswordHash() {
+        // Arrange
+        String memberId = "testUser";
+        String passwordHash = "password";
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
+    }
+
+    @Test
+    public void testRegisterMember_MemberIdExists() {
+        // Arrange
+        String memberId = "testUser";
+        String passwordHash = "Test@1234";
+        when(memberRepository.existsById(memberId)).thenReturn(true);
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> memberService.registerMember(memberId, passwordHash));
     }
 }
