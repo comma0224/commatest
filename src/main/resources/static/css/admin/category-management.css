@@ -1,0 +1,8 @@
+#categoriesTable_wrapper {
+    border: 1px solid #5d3a86;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.button-container {
+    margin-top: 2rem;
+}

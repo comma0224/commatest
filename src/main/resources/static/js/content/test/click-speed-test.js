@@ -1,5 +1,5 @@
 let clickCount = 0;
-let timeout;
+let timeout; // Declare timeout at the top level to avoid redeclaration
 
 function showDefaultScreen() {
     $('#testContainer').removeClass().addClass('test-container');

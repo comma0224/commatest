@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    createInputGroup($('#spec-container'), structuredClone(datasetSpecs));
-    createInputGroup($('#skill-container'), structuredClone(datasetSkills));
-    createInputGroup($('#familiar-container'), structuredClone(datasetFamiliars));
+    createInputGroup($('#spec-container'), structuredClone(datasetSpecs),'hunt-damage');
+    createInputGroup($('#skill-container'), structuredClone(datasetSkills),'hunt-damage');
+    createInputGroup($('#familiar-container'), structuredClone(datasetFamiliars),'hunt-damage');
 
     $('#relics-damage-button').on('click', function() {
         huntSetResult();
@@ -116,7 +116,7 @@ function huntSetResult() {
     });
 
     $('#relicsDamage-container').append(div);
-    createInputGroup($('#relicsDamage-container'), results);
+    createInputGroup($('#relicsDamage-container'), results,'hunt-damage');
 }
 
 

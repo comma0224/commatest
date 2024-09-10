@@ -15,7 +15,7 @@ $(document).ready(function() {
 
                 sendAjax('/update-member-info', memberData)
                     .then(response => {
-                        if (response.status === true) {
+                        if (response.status) {
                             alertBox(response.message);
                             // Update the member information on the page
                             const updatedMember = response.updatedMember;
@@ -57,7 +57,7 @@ $(document).ready(function() {
 
                 sendAjax('/update-member-password', memberData)
                     .then(response => {
-                        if (response.status === true) {
+                        if (response.status) {
                             alertBox(response.message);
 
                             inputIds.forEach(id => {
@@ -93,7 +93,8 @@ $(document).ready(function() {
 
                 sendAjax('/delete-member', memberData)
                     .then(response => {
-                        if (response.status === true) {
+                        if (response.status) {
+                            clearCachedCategories();
                             navigateToPageWithAlert('', response.message);
                         }else {
                             errorBox(response.message);

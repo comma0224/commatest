@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -140,6 +140,7 @@ public class MemberService {
 
         session.setAttribute("memberId", member.getMemberId());
         session.setAttribute("memberCode", member.getMemberCode());
+        session.setAttribute("memberLevel", member.getMemberLevel());
         session.setAttribute("isLoggedIn", true);
 
         member.setLastLogin(Timestamp.valueOf(LocalDateTime.now()));
@@ -148,5 +149,29 @@ public class MemberService {
     public boolean isEmailExists(String email) {
         // Implement the logic to check if the email exists in the database
         return memberRepository.existsByEmail(email);
+    }
+
+    public List<Member> findMemberAll() {
+        return memberRepository.findAll();
+    }
+
+    public void saveAll(List<Member> members) throws Exception {
+        members.forEach(member -> newMemberUpdate(member));
+
+        try {
+            memberRepository.saveAll(members);
+        } catch (Exception e) {
+            throw new Exception("저장에 실패하였습니다.", e);
+        }
+    }
+
+    private void newMemberUpdate(Member member) {
+        if (member.getMemberCode().equals("")) {
+            member.setMemberCode(generateUniqueMemberCode());
+        }
+
+        if (member.getPasswordHash().equals("")) {
+            member.setPasswordHash("1234");
+        }
     }
 }

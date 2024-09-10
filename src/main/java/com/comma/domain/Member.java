@@ -3,6 +3,7 @@ package com.comma.domain;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.sql.Struct;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,9 +14,8 @@ public class Member {
     @Column(name = "member_code", length = 50)
     private String memberCode;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "member_level", columnDefinition = "ENUM('guest', 'member', 'moderator', 'admin') DEFAULT 'member'")
-    private MemberLevel memberLevel = MemberLevel.member;
+    @Column(name = "member_level", length = 50, columnDefinition = "VARCHAR(50) DEFAULT 'member'")
+    private String memberLevel;
 
     @Column(name = "member_id", length = 50, nullable = false, unique = true)
     private String memberId;
@@ -41,9 +41,8 @@ public class Member {
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender", columnDefinition = "ENUM('male', 'female')")
-    private Gender gender;
+    @Column(name = "gender")
+    private Boolean gender;
 
     @Column(name = "profile_picture_url", length = 255)
     private String profilePictureUrl;
@@ -57,9 +56,8 @@ public class Member {
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "account_type", columnDefinition = "ENUM('free', 'premium', 'enterprise') DEFAULT 'free'")
-    private AccountType accountType = AccountType.free;
+    @Column(name = "account_type", length = 50, columnDefinition = "VARCHAR(50) DEFAULT 'free'")
+    private String accountType;
 
     @Column(name = "subscription_expiry")
     private Date subscriptionExpiry;
@@ -78,11 +76,11 @@ public class Member {
         this.memberCode = memberCode;
     }
 
-    public MemberLevel getMemberLevel() {
+    public String getMemberLevel() {
         return memberLevel;
     }
 
-    public void setMemberLevel(MemberLevel memberLevel) {
+    public void setMemberLevel(String memberLevel) {
         this.memberLevel = memberLevel;
     }
 
@@ -150,11 +148,11 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
-    public Gender getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -191,11 +189,11 @@ public class Member {
     }
 
 
-    public AccountType getAccountType() {
+    public String getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(AccountType accountType) {
+    public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 

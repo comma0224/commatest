@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- 현재 화면에서만 사용하는 css -->
+    <link rel="stylesheet" th:href="@{/css/grow-demon-slime.css}">
+
+<!-- 현재 화면에서만 사용하는 js -->
+    <script th:src="@{/js/content/grow-demon-slime/relics.js}"></script>
+    <script th:src="@{/js/content/grow-demon-slime/hunt-damage.js}"></script>
+
+<body>
+<div class="container">
+    <div class="h1 mt-3">
+        사냥 추천 셋팅
+    </div>
+    <div class="row row-cols-1 row-cols-md-3">
+        <div id="spec-container" class="col">
+            <div>상세스펙(유물 안낀 기준 입력)</div>
+        </div>
+        <div id="skill-container" class="col">
+            <div>스킬</div>
+        </div>
+        <div id="familiar-container" class="col">
+            <div>사역마</div>
+        </div>
+    </div>
+
+        <div class="w-100">
+
+            <div class="d-flex align-items-center">
+            <h4 class="m-0">유물 세트 별 사냥 원킬 컷 계산</h4>
+            <button id="relics-damage-button" class="btn btn-primary">계산</button>
+            </div>
+            <h6>유물 중 "평범한 자물쇠"는 계산에서 제외 되었습니다.</h6>
+            <h6>방치 스킬 중 빛의 파동, 박쥐, 가시럴커는 권장하지 않습니다.</h6>
+
+            <div id="relicsDamage-container"></div>
+        </div>
+</div>
+</body>
+</html>

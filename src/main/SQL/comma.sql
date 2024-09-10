@@ -21,24 +21,31 @@ CREATE TABLE member
     cash                INT       DEFAULT 0                                             -- 캐쉬
 );
 
+CREATE INDEX idx_member_code ON member(member_code);
+CREATE INDEX idx_member_id ON member(member_id);
+CREATE INDEX idx_email ON member(email);
+
 CREATE TABLE category
 (
-    category_id      CHAR(36) PRIMARY KEY DEFAULT (UUID()),                          -- UUID를 사용한 고유 식별자
-    main_category    VARCHAR(255),                                                   -- 메인 카테고리
-    sub_category     VARCHAR(255),                                                   -- 서브 카테고리
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,                            -- 카테고리가 생성된 시간
-    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,-- 카테고리가 마지막으로 업데이트된 시간
-    created_by       VARCHAR(255),                                                   -- 카테고리를 생성한 사용자
-    updated_by       VARCHAR(255),                                                   -- 카테고리를 마지막으로 업데이트한 사용자
-    status           VARCHAR(50),                                                    -- 카테고리의 상태 (예: active, inactive)
-    slug             VARCHAR(255),                                                   -- URL 친화적인 카테고리 이름
-    priority         INT,                                                            -- 정렬을 위한 카테고리의 우선순위
-    meta_title       VARCHAR(255),                                                   -- SEO를 위한 메타 제목
-    meta_description TEXT,                                                           -- SEO를 위한 메타 설명
-    member_level     ENUM('guest', 'member', 'moderator', 'admin')                   -- 카테고리를 조회할 수 있는 회원 레벨
+    category_id      INT AUTO_INCREMENT PRIMARY KEY,                -- 고유 식별자
+    main_category    VARCHAR(255) NOT NULL,                         -- 메인 카테고리
+    sub_category     VARCHAR(255) NOT NULL,                         -- 서브 카테고리
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  -- 카테고리가 생성된 시간
+    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, -- 카테고리가 마지막으로 업데이트된 시간
+    created_by       VARCHAR(255) NOT NULL,                         -- 카테고리를 생성한 사용자
+    updated_by       VARCHAR(255) NOT NULL,                         -- 카테고리를 마지막으로 업데이트한 사용자
+    status           BOOLEAN DEFAULT FALSE NOT NULL,                -- 카테고리의 상태 (예: active, inactive)
+    slug             VARCHAR(255) NOT NULL,                         -- URL 친화적인 카테고리 이름
+    priority         INT NOT NULL,                                  -- 정렬을 위한 카테고리의 우선순위
+    meta_title       VARCHAR(255) NOT NULL,                         -- SEO를 위한 메타 제목
+    meta_description TEXT NOT NULL,                                 -- SEO를 위한 메타 설명
+    member_level     ENUM('guest', 'member', 'moderator', 'admin') NOT NULL, -- 카테고리를 조회할 수 있는 회원 레벨
+    CONSTRAINT fk_created_by FOREIGN KEY (created_by) REFERENCES member(member_id), -- 외래 키 제약 조건
+    CONSTRAINT fk_updated_by FOREIGN KEY (updated_by) REFERENCES member(member_id)  -- 외래 키 제약 조건
 );
 
--- UUID 중복 여부를 확인하는 예시
-INSERT INTO category (category_id, main_category, sub_category)
-SELECT UUID(), 'Electronics', 'Computers'
-    WHERE NOT EXISTS (SELECT 1 FROM category WHERE category_id = UUID());
+-- Indexes for frequently queried columns
+CREATE INDEX idx_main_category ON category(main_category);
+CREATE INDEX idx_sub_category ON category(sub_category);
+CREATE INDEX idx_slug ON category(slug);
+CREATE INDEX idx_priority ON category(priority);

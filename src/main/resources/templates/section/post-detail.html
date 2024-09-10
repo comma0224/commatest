@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/ckeditor5/ckeditor5.css}">
+    <link rel="stylesheet" th:href="@{/css/section/new-post.css}">
+    <script type="module" th:src="@{/js/section/post-detail.js}"></script>
+</head>
+<body>
+<div class="container">
+    <form id="postDetailForm" class="row g-3">
+        <div class="col-md-2">
+            <label for="subSectionTags" class="form-label">태그</label>
+            <select id="subSectionTags" class="form-select" name="subSectionTags" disabled>
+                <option class="subSectionTag" th:data-key="${postDetail.subSectionTagKey}" th:text="${postDetail.subSectionTagTitle}"></option>
+            </select>
+        </div>
+        <div class="col-md-8">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${postDetail.title}" readonly>
+        </div>
+        <div class="col-md-2">
+            <label for="nickname" class="form-label">작성자</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" th:value="${postDetail.nickname}" readonly>
+        </div>
+        <div class="col-12">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" id="content" name="content" readonly th:text="${postDetail.content}"></textarea>
+        </div>
+    </form>
+
+    <!-- Comment Section -->
+    <div class="comment-section">
+        <h3>댓글</h3>
+        <form id="saveComment" method="post">
+            <div class="mb-3">
+                <label for="commentContent" class="form-label">댓글 작성</label>
+                <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">댓글 등록</button>
+        </form>
+
+        <div class="comments-list">
+            <h4>댓글 목록</h4>
+            <div th:each="comment : ${comments}">
+                <div class="comment">
+                    <p><strong th:text="${comment.nickname}">작성자</strong></p>
+                    <p th:text="${comment.content}">댓글 내용</p>
+                    <p><small th:text="${comment.createdAt}">작성일</small></p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="postKey" th:value="${postDetail.postKey}">
+</body>
+</html>

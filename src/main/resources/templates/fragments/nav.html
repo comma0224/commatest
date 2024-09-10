@@ -13,17 +13,18 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body pt-0 align-items-center">
-                <ul class="navbar-nav mx-auto align-items-lg-center" id="dynamicMenu"></ul>
+                <ul class="navbar-nav mx-auto align-items-lg-center" id="dynamicCategories"></ul>
 
 <!--                <div class="mt-3 mt-lg-0 d-flex align-items-center">-->
 <!--                    <a href="/member-login" class="btn btn-light mx-2">로그인</a>-->
 <!--                    <a href="/member-register" class="btn btn-primary">회원 가입</a>-->
 <!--                </div>-->
+
                 <div class="mt-3 mt-lg-0 d-flex align-items-center">
-                    <a th:if="${session.isLoggedIn}" href="/member-logout" class="btn btn-light mx-2">로그아웃</a>
-                    <a th:if="${session.isLoggedIn}" href="/member-info" class="btn btn-primary">내정보</a>
-                    <a th:unless="${session.isLoggedIn}" href="/member-login" class="btn btn-light mx-2">로그인</a>
-                    <a th:unless="${session.isLoggedIn}" href="/member-register" class="btn btn-primary">회원 가입</a>
+                    <a th:if="${session.isLoggedIn}" onclick="userLogout()" class="btn btn-light mx-2">로그아웃</a>
+                    <a th:if="${session.isLoggedIn}" href="/user-info" class="btn btn-primary">내정보</a>
+                    <a th:unless="${session.isLoggedIn}" href="/user-login" class="btn btn-light mx-2">로그인</a>
+                    <a th:unless="${session.isLoggedIn}" href="/user-register" class="btn btn-primary">회원 가입</a>
                 </div>
             </div>
         </div>

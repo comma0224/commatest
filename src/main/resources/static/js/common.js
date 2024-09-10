@@ -1,39 +1,21 @@
 $(document).ready(function () {
-
     const message = localStorage.getItem('alertMessage');
     if (message) {
         alertBox(message);
         localStorage.removeItem('alertMessage');
     }
+    initializeCategories(dynamicCategories);
 
-    indexPageMenu();
-    dynamicMenu();
+    // WebSocket connection
+    var socket = new WebSocket('ws://localhost/category-updates');
+
+    socket.onmessage = function (event) {
+        if (event.data === 'Categories updated') {
+            clearCachedCategories();
+            initializeCategories(dynamicCategories);
+        }
+    };
 });
-
-// index 화면 메뉴 생성
-function indexPageMenu() {
-    var container = $('#indexPageMenu');
-    container.empty(); // 기존 내용을 지웁니다.
-
-    $.each(datasetMenu, function (index, item) {
-        var divCol = $('<div class="col my-3"></div>');
-        var divCard = $('<div class="card text-center shadow-sm" role=button></div>');
-        var divBody = $('<div class="card-body"></div>');
-        var h6 = $('<h6 class="card-title m-2 setMenuSize flex-center"></h6>');
-
-        divCard.click(function () {
-            navigateToPage(item.id);
-        });
-
-        h6.text(item.subMenu);
-
-        divBody.append(h6);
-        divCard.append(divBody);
-        divCol.append(divCard);
-
-        container.append(divCol);
-    });
-}
 
 // 페이지 이동
 function navigateToPage(name) {
@@ -41,24 +23,25 @@ function navigateToPage(name) {
 }
 
 // nav 메뉴 생성
-function dynamicMenu() {
-    var appendMenu = $('#dynamicMenu');
-    var mainMenus = [...new Set(datasetMenu.map(item => item.mainMenu))];
+function dynamicCategories(categoriesList) {
+    var container = $('#dynamicCategories');
+    container.empty(); // 기존 내용을 지웁니다.
+    var mainCategorys = [...new Set(categoriesList.map(item => item.mainCategory))];
 
-    mainMenus.forEach(function (mainMenu) {
-        var mainMenuItem = $('<li class="nav-item dropdown"></li>');
+    mainCategorys.forEach(function (mainCategory) {
+        var mainCategoryItem = $('<li class="nav-item dropdown"></li>');
         var a = $('<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>');
-        a.text(mainMenu);
+        a.text(mainCategory);
         var ul = $('<ul class="dropdown-menu"></ul>');
 
-        datasetMenu.filter(item => item.mainMenu === mainMenu).forEach(function (item) {
-            var subMenuItem = $('<li><a class="dropdown-item" href="#" onclick="navigateToPage(\'' + item.id + '\')">' + item.subMenu + '</a></li>');
-            ul.append(subMenuItem);
+        categoriesList.filter(item => item.mainCategory === mainCategory).forEach(function (item) {
+            var subCategoryItem = $('<li><a class="dropdown-item" href="#" onclick="navigateToPage(\'' + item.slug + '\')">' + item.subCategory + '</a></li>');
+            ul.append(subCategoryItem);
         });
 
-        mainMenuItem.append(a);
-        mainMenuItem.append(ul);
-        appendMenu.append(mainMenuItem);
+        mainCategoryItem.append(a);
+        mainCategoryItem.append(ul);
+        container.append(mainCategoryItem);
     });
 }
 
@@ -132,4 +115,44 @@ function sendAjax(url, data) {
 function navigateToPageWithAlert(name, message) {
     localStorage.setItem('alertMessage', message);
     window.location.href = '/' + name;
+}
+
+function clearCachedCategories() {
+    localStorage.removeItem('categoriesList');
+}
+
+function userLogout() {
+    sendAjax('/user-logout', {})
+        .then(response => {
+            if (response.status) {
+                clearCachedCategories();
+                navigateToPageWithAlert('', response.message);
+            } else {
+                errorBox(response.message);
+            }
+        })
+        .catch(error => {
+            errorBox(error.message);
+        });
+}
+
+function initializeCategories(callback) {
+    var categoriesList = JSON.parse(localStorage.getItem('categoriesList'));
+    var localStorageMemberLevel = localStorage.getItem('memberLevel');
+
+    sendAjax('/checkMemberLevel',{})
+        .then(response => {
+            var memberLevel = response.memberLevel;
+
+            if (!categoriesList || localStorageMemberLevel !== memberLevel) {
+                sendAjax('/categories', {})
+                    .then(function (response) {
+                        localStorage.setItem('categoriesList', JSON.stringify(response));
+                        localStorage.setItem('memberLevel', memberLevel);
+                        callback(response);
+                    });
+            } else {
+                callback(categoriesList);
+            }
+        })
 }

@@ -31,7 +31,8 @@ $(document).ready(function() {
                 sendAjax('/login', memberData)
                     .then(response => {
                         if (response.status) {
-                            window.location.href = '/';
+                            clearCachedCategories();
+                            navigateToPageWithAlert('', response.message);
                         } else {
                             errorBox(response.message);
                         }

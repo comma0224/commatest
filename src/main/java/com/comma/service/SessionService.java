@@ -11,4 +11,8 @@ public class SessionService {
             session.invalidate();
         }
     }
+
+    public Boolean checkLogin(HttpSession session) {
+        return Boolean.TRUE.equals(session.getAttribute("isLoggedIn"));
+    }
 }

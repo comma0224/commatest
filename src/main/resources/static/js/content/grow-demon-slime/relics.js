@@ -1,5 +1,4 @@
-function createInputGroup(container, items) {
-    var fileName = window.location.pathname.split('/').pop().split('.')[0];
+function createInputGroup(container, items , fileName) {
     var containerId = container.attr('id').split('-')[0].split('#')[0];
     var isSkillOrFamiliar = (containerId === 'skill' || containerId === 'familiar');
     var isRelicsContainer = (containerId === 'relicsDamage' || containerId === 'relics' || containerId === 'relicsDPS');

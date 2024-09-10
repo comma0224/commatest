@@ -1,0 +1,79 @@
+
+.subSection {
+    list-style-type: none;
+    padding: 0.25rem !important;
+}
+.groupSection {
+    font-weight: bold;
+    padding: 0.25rem !important;
+    font-size: 1.2rem;
+}
+
+.sectionList li:hover, .sectionList li[data-active="true"] {
+    border-radius: 4px;
+    background: var(--bs-gray-200);
+}
+
+#subSectionTags span:hover, #subSectionTags span[data-active="true"] {
+    border: 1px solid #8b3dff;
+    background-color: #682ebf;
+    color: #fff;
+}
+
+.subSectionTag {
+    border: 1px solid #8b3dff;
+    background-color: #fff;
+    color: #000000;
+}
+
+.posts {
+    height: 100vh;
+}
+
+.row.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #8b3dff;
+    border-color: #8b3dff;
+}
+
+.page-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #8b3dff;
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-btn:hover {
+    background-color: #8b3dff;
+    color: #fff;
+}
+
+.page-btn.active {
+    background-color: #8b3dff;
+    color: #fff;
+    border-color: #682ebf;
+}
+
+/* CKEditor 테이블 스타일 덮어쓰기 */
+.ck-content table {
+    width: 100% !important; /* Bootstrap의 width: 100% 덮어쓰기 */
+    background-color: initial !important; /* Bootstrap의 배경색 덮어쓰기 */
+    border-collapse: collapse !important; /* 테이블 경계선 스타일 */
+}
+
+.ck-content th,
+.ck-content td {
+    border: 1px solid #ddd !important; /* 테이블 셀 경계선 스타일 */
+    padding: 8px !important; /* 테이블 셀 패딩 */
+}
+
+.ck-content th {
+    background-color: #f2f2f2 !important; /* 테이블 헤더 배경색 */
+    text-align: left !important; /* 테이블 헤더 텍스트 정렬 */
+}

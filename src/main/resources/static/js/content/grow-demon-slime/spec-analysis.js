@@ -18,10 +18,10 @@ $(document).ready(function () {
     modify_datasetRelics.push({ name: "뇌전의 깃털(스치피 600+)", tiers: "4", key: "relic-4f1", use: 1});
     modify_datasetRelics.push({ name: "버려진 애착 인형(사치피 600+)", tiers: "4", key: "relic-4g1", use: 1});
 
-    createInputGroup($('#spec-container'), structuredClone(datasetSpecs));
-    createInputGroup($('#skill-container'), structuredClone(datasetSkills));
-    createInputGroup($('#familiar-container'), structuredClone(datasetFamiliars));
-    createInputGroup($('#relics-container'), modify_datasetRelics);
+    createInputGroup($('#spec-container'), structuredClone(datasetSpecs),'spec-analysis');
+    createInputGroup($('#skill-container'), structuredClone(datasetSkills),'spec-analysis');
+    createInputGroup($('#familiar-container'), structuredClone(datasetFamiliars),'spec-analysis');
+    createInputGroup($('#relics-container'), modify_datasetRelics,'spec-analysis');
 
     relicsResult();
 
@@ -97,7 +97,7 @@ function relicsSetResult() {
 
 
     $('#relicsDPS-container').empty();
-    createInputGroup($('#relicsDPS-container'), results);
+    createInputGroup($('#relicsDPS-container'), results,'spec-analysis');
 }
 
 function calculateDPS(datasetSpecs, datasetSkills, datasetFamiliars, hasLock) {

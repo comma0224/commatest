@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/user/user.js}"></script>
+    <script th:src="@{/js/user/user-info.js}"></script>
+</th:block>
+
+<body>
+<div layout:fragment="content" class="container">
+    <div class="h1 mt-3">
+        회원 정보
+    </div>
+
+    <div class="row flex-column align-items-center">
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    회원 정보
+                </h4>
+                <div class="card-text">
+                    <form id="info-user" th:object="${user}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="info-userId" class="form-label">
+                                아이디
+                            </label>
+                            <input type="text" class="form-control" id="info-userId" required th:field="*{userId}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="info-point" class="form-label">
+                                포인트
+                            </label>
+                            <input type="text" class="form-control" id="info-point" required th:field="*{point}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="info-cash" class="form-label">
+                                캐쉬
+                            </label>
+                            <input type="text" class="form-control" id="info-cash" required th:field="*{cash}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="info-experience" class="form-label">
+                                경험치
+                            </label>
+                            <input type="text" class="form-control" id="info-experience" required th:field="*{experience}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="info-level" class="form-label">
+                                레벨
+                            </label>
+                            <input type="text" class="form-control" id="info-level" required th:field="*{level}" disabled>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    회원 별명 수정
+                </h4>
+                <div class="card-text">
+                    <form id="update-user" th:object="${user}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="update-nickname" class="form-label">
+                                별명
+                            </label>
+                            <input type="text" class="form-control" id="update-nickname" required th:field="*{nickname}">
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">회원 별명 수정</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    비밀번호 변경
+                </h4>
+                <div class="card-text">
+                    <form id="update-user-password" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="check-user-password" class="form-label">
+                                현재 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="check-user-password">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modify-user-password" class="form-label">
+                                변경 할 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="modify-user-password">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modify-confirm-user-password" class="form-label">
+                                변경 할 비밀번호 확인
+                            </label>
+                            <input type="password" class="form-control" required id="modify-confirm-user-password">
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">비밀번호 변경</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-12 my-3 card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title m-2">
+                    회원 탈퇴
+                </h4>
+                <div class="card-text">
+                    <form id="delete-user" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="delete-user-Password" class="form-label">
+                                현재 비밀번호
+                            </label>
+                            <input type="password" class="form-control" required id="delete-user-Password">
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">탈퇴하기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

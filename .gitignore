@@ -42,3 +42,7 @@ out/
 out
 gen
 build
+
+# Ignore environment-specific properties files
+/src/main/resources/application-dev.properties
+/src/main/resources/application-prod.properties

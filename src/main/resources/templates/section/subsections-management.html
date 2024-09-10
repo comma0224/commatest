@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script th:src="@{/js/section/subsections-management.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h1>메뉴 관리</h1>
+    <div class="row row-cols-4 justify-content-evenly">
+
+        <div class="col card p-0">
+            <div class="card-header fw-bolder">그룹</div>
+            <div id="titleGroupList" class="card-body p-0">
+                <div th:each="group : ${groupedSubSections}" class="border-bottom border-200 p-2 m-0 row" th:data-key="${group.key}" th:text="${group.key}"></div>
+            </div>
+            <div class="row row-cols-2 justify-content-evenly mb-1">
+                <button id="addTitleGroup" class="btn btn-success mt-2 col-md-5">+ 추가</button>
+                <button id="deleteTitleGroup" class="btn btn-danger mt-2 col-md-5">- 삭제</button>
+            </div>
+        </div>
+
+        <div class="col card p-0">
+            <div class="card-header fw-bolder">목록</div>
+            <div id="subSectionList" class="card-body p-0">
+                <div th:each="subSection : ${subSections}" class="border-bottom border-200 p-2 m-0 row" th:data-key="${subSection.subSectionKey}" th:data-group="${subSection.titleGroup}" th:text="${subSection.title}"></div>
+            </div>
+            <div class="row row-cols-2 justify-content-evenly mb-1">
+                <button id="addSubSection" class="btn btn-success mt-2 col-md-5">+ 추가</button>
+                <button id="deleteSubSection" class="btn btn-danger mt-2 col-md-5">- 삭제</button>
+            </div>
+        </div>
+
+        <div class="col card p-0">
+            <div class="card-header fw-bolder">태그</div>
+            <div id="subSectionTagList" class="card-body p-0">
+                <div th:each="tag : ${subSectionTags}" th:data-key="${tag.subSectionTagKey}" class="border-bottom border-200 p-2 m-0 row" th:data-subsection="${tag.subSectionKey}" th:text="${tag.title}"></div>
+            </div>
+            <div class="row row-cols-2 justify-content-evenly mb-1">
+                <button id="addSubSectionTag" class="btn btn-success mt-2 col-md-5">+ 추가</button>
+                <button id="deleteSubSectionTag" class="btn btn-danger mt-2 col-md-5">- 삭제</button>
+            </div>
+        </div>
+
+    </div>
+
+    <button id="saveButton" class="btn btn-primary mt-4">저장</button>
+</div>
+</body>
+</html>

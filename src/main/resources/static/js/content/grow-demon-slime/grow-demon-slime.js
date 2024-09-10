@@ -1,9 +1,4 @@
-$(document).ready(function() {
 
-
-    // DataTable을 초기화합니다.
-    initializeData();
-});
 var previousRowData = null;
 
 function updateColumnsVisibility(column, pageKey) {
@@ -43,8 +38,7 @@ function updateColumnsVisibility(column, pageKey) {
 }
 
 // DataTable의 Data 생성
-function initializeData() {
-    var fileName = window.location.pathname.split('/').pop().split('.')[0];
+function initializeData(fileName) {
 
     var selector;
     var datasets;
