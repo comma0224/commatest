@@ -1,0 +1,183 @@
+.navbar {
+    height: 3rem;
+    background: #fff;
+    box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+.navbar-toggler {
+    background: var(--color-white);
+    border: var(--base-border);
+    border-radius: var(--base-border-radius);
+}
+.navbar-toggler:hover {
+    background: var(--color-light);
+}
+
+.navbar-toggler-icon {
+    width: 2rem;
+    height: 2rem;
+    background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(100, 116, 139, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.offcanvas {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    transition: left 0.3s ease-in-out;
+    z-index: 1050;
+}
+
+.offcanvas.show {
+    left: 0;
+}
+
+.offcanvas-header {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.brand {
+    width: 2rem;
+    height: 2rem;
+}
+.brand-logo{
+    content: url(/images/brand.png);
+    width: 2rem;
+    height: 2rem;
+}
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.offcanvas-body {
+    padding: 1rem;
+}
+
+.offcanvas-backdrop {
+    background-color: #020617;
+    opacity: 0;
+    width: 0;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1040;
+    transition: opacity 0.3s ease-in;
+}
+
+.offcanvas-backdrop.show {
+    opacity: 0.5;
+    width: 100vw;
+}
+
+#dynamicCategories {
+    margin: 0;
+    padding: 0;
+}
+
+#dynamicCategories .nav-item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#dynamicCategories .nav-main:hover {
+    background-color: #eeeeee;
+    border-radius: var(--base-border-radius);
+}
+
+#dynamicCategories .nav-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 1rem;
+    width: 100%;
+}
+#dynamicCategories .nav-title {
+    font-weight: bold;
+}
+
+#dynamicCategories .nav-list {
+    width: 1rem;
+    height: 1rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708'/%3e%3c/svg%3e");
+}
+
+#dynamicCategories .dropdown-menu {
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+#dynamicCategories .dropdown-menu.show {
+    height: auto;
+}
+
+#dynamicCategories .dropdown-item {
+    display: block;
+    padding: 0.25rem 1rem;
+}
+
+#dynamicCategories .dropdown-item:hover {
+background-color: #eeeeee;
+}
+
+@media (min-width: 992px) {
+    .navbar-toggler {
+        display: none;
+    }
+    .offcanvas {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        position: static;
+        flex-direction: row;
+        z-index: auto;
+    }
+    .offcanvas-header {
+        display: none;
+    }
+    .offcanvas-body {
+        flex: 1;
+    }
+    #dynamicCategories {
+        display: flex;
+        justify-content: center;
+    }
+    #dynamicCategories .nav-item {
+        position: relative;
+    }
+
+    #dynamicCategories .nav-list {
+        display: none;
+    }
+    #dynamicCategories .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        visibility: hidden;
+        transition: visibility 0.2s;
+        width: 10rem;
+        padding: 0.25rem;
+        margin: 0.125rem 0 0;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.2rem;
+        height: auto;
+    }
+    #dynamicCategories .nav-item:hover .dropdown-menu {
+        visibility: visible;
+    }
+    #dynamicCategories .dropdown-item {
+        padding: 0.25rem;
+    }
+}

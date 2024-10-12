@@ -1,0 +1,6 @@
+<div id="code" th:text="${code}" style="display:none;"></div>
+<script>
+    const kakaoCode = document.getElementById('code').textContent;
+    window.opener.oauth(kakaoCode);
+    window.close();
+</script>

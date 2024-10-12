@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="module" th:src="@{/js/shelter/ckeditor5-viewer.js}"></script>
+    <link rel="stylesheet" th:href="@{/ckeditor5/ckeditor5.css}">
+    <script th:src="@{/js/shelter/post-detail.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row g-3">
+        <div>
+            <div>
+                <span class="tag" th:text="${postDetail.subSectionTagTitle}">subSectionTagTitle</span>
+            </div>
+            <div>
+                <b th:text="${postDetail.title}">title</b>
+                <span class="small" th:text="'[' + ${postDetail.commentCount} + ']'">likeCount</span>
+            </div>
+
+            <div class="row">
+                <div class="col-9 small" th:text="${postDetail.nickname}">nickname</div>
+                <div class="createdAt col-2 small" th:text="${postDetail.createdAt}">createdAt</div>
+                <div class="col-1 small" th:text="${postDetail.views}">views</div>
+            </div>
+        </div>
+        <hr>
+        <div class="col-12">
+            <textarea class="form-control" id="content" readonly th:text="${postDetail.content}"></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="flex-center">
+        <div class="btn-like">
+            <span th:if="${isPostLike}" class="bi isPostLike bi-heart-fill"></span>
+            <span th:unless="${isPostLike}" class="bi isPostLike bi-heart"></span>
+            <br>
+            좋아요
+        </div>
+        <div class="btn-report">
+            <span class="bi new-report bi-flag-fill"></span>
+            <br>
+            신고
+        </div>
+    </div>
+    <hr>
+    <div id="commentsHeader">
+        댓글 목록
+    </div>
+    <div id="comments"></div>
+    <!-- Comment Section -->
+    <div class="comment-section">
+        <form id="saveComment" method="post">
+            <div class="mb-3 row">
+                <div class="col-10">
+                    <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">댓글 등록</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<input type="hidden" id="postKey" th:value="${postDetail.postKey}">
+</body>
+</html>

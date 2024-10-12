@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/ckeditor5/ckeditor5-editor.css}">
+    <link rel="stylesheet" th:href="@{/css/shelter/section.css}">
+    <script type="module" th:src="@{/js/shelter/ckeditor5-editor.js}"></script>
+    <script th:src="@{/js/shelter/new-post.js}"></script>
+</head>
+<body>
+<div class="container">
+    <form id="newPostForm" class="row g-3">
+        <div class="col-md-2">
+            <label for="subSectionTags" class="form-label">태그</label>
+            <select id="subSectionTags" class="form-select" name="subSectionTags">
+                <option th:each="subSectionTag : ${subSectionTags}" class="subSectionTag" th:data-key="${subSectionTag.subSectionTagKey}" th:text="${subSectionTag.title}"></option>
+            </select>
+        </div>
+        <div class="col-md-10">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="col-12">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" id="content" name="content"></textarea>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">작성</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

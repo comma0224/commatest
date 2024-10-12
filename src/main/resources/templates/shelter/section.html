@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<!-- 현재 화면에서만 사용하는 css -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/shelter/section.css}">
+</th:block>
+
+<!-- 현재 화면에서만 사용하는 js -->
+<th:block layout:fragment="script">
+
+    <script th:src="@{/js/shelter/section.js}"></script>
+</th:block>
+
+<body>
+<div layout:fragment="content" class="container">
+
+    <div class="row my-4">
+        <div class="col-md-3 p-1">
+            <div class="area p-3 h-100">
+                <div class="mb-3">
+                    <div th:if="${user}">
+                        <div class="mb-2 p-2 border border-light rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-person-circle me-2"></i>
+                                <span th:text="${user.nickname}">user.nickname</span>
+                            </div>
+                        </div>
+                        <div class="mb-2 p-2 border border-light rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-award me-2"></i>
+                                <span th:text="'레벨: ' + ${user.level}">user.level</span>
+                                <i class="bi bi-star ms-5 me-2"></i>
+                                <span th:text="'경험치: ' + ${user.experience}">user.experience</span>
+                            </div>
+                        </div>
+                        <div class="mb-2 p-2 border border-light rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-cash-stack me-2"></i>
+                                <span th:text="'캐쉬: ' + ${user.cash}">user.cash</span>
+                                <i class="bi bi-coin ms-5 me-2"></i>
+                                <span th:text="'포인트: ' + ${user.points}">user.points</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="userLogout()">로그아웃</button>
+                    </div>
+                    <div th:unless="${user}">
+                        <a class="btn btn-primary w-100" href="/user-login">로그인</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="sectionList" th:each="group : ${groupedSubSections}">
+                    <div th:text="${group.key}" class="groupSection">group.key</div>
+                    <ul class="p-0">
+                        <li th:each="subSection : ${group.value}" class="subSection" th:data-key="${subSection.subSectionKey}" th:data-url="${subSection.url}" th:text="${subSection.title}">
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <!-- 사이드바 리스트 -->
+        </div>
+
+        <div class="col-md-9 p-1 d-flex flex-column">
+            <div class="area p-3 mb-2">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <h3 th:text="${title}">Section Name</h3>
+
+                        <span th:if="${isFavorite}" class="bi isFavorite bi-star-fill"></span>
+                        <span th:unless="${isFavorite}" class="bi isFavorite bi-star"></span>
+
+                    </div>
+                    <div class="d-flex">
+                        <div th:if="${isAdmin}" class="mx-2">
+                            <button class="btn btn-primary" onclick="fetchContentData('/subsections-management')">
+                                메뉴 편집
+                            </button>
+                        </div>
+                        <div id="newPost" class="mx-2">
+                            <button class="btn btn-primary" onclick="newPost()">
+                                새 글 작성
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="subSectionTags">
+
+                </div>
+
+            </div>
+            <div id="postsArea" class="area p-3 min-vh-100">
+                <div class="postHeader row">
+                    <div class="text-center col-1">좋아요</div>
+                    <div class="col-7">제목</div>
+                    <div class="text-center col-1">작성자</div>
+                    <div class="text-center col-2">작성일</div>
+                    <div class="text-center col-1">조회수</div>
+                </div>
+                <hr>
+                <div id="posts"></div>
+                <div id="pages" class="flex-center"></div>
+            </div>
+            <div id="contentsArea" class="area p-3 min-vh-100">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="sectionKey" th:value="${sectionKey}">
+    <input type="hidden" id="subSectionKey">
+</div>
+</body>
+</html>

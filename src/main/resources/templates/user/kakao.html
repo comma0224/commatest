@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<script th:src="@{/js/common/kakao.min.js}"
+        th:integrity="@{sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4}"
+        th:crossorigin="@{anonymous}"></script>
+
+<script>
+    Kakao.init('771003384d4adf7a982d12789ec3bdf1');
+    var url = new URL(window.location.href);
+    var redirectUri = url.origin + '/oauth';
+    Kakao.Auth.authorize({
+        redirectUri: redirectUri
+    });
+</script>
+
+</html>
