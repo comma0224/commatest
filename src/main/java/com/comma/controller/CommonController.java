@@ -30,4 +30,6 @@ public class CommonController {
         response.put("memberLevel", memberLevel);
         return response;
     }
+
+
 }

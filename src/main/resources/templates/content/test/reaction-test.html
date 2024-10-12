@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{fragments/layout}">
 <body>
 
 <!-- 현재 화면에서만 사용하는 css -->
@@ -12,7 +12,7 @@
 
 <!-- 현재 화면에서만 사용하는 js -->
 <th:block layout:fragment="script">
-    <script th:src="@{/js/content/test/reaction-test.js}"></script>
+    <script th:src="@{/js/addon/test/reaction-test.js}"></script>
 </th:block>
 
 <div layout:fragment="content" class="container">

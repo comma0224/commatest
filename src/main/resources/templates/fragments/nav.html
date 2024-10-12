@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="nav" class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="container px-3">
-        <a class="navbar-brand" href="/">콤마</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
-            <span class="navbar-toggler-icon"></span>
+<nav th:fragment="nav" class="navbar">
+    <div class="container flex-space-between">
+        <a class="brand" href="/">
+            <img class="brand-logo" src="">
+        </a>
+        <button class="navbar-toggler" type="button">
+            <div class="navbar-toggler-icon"></div>
         </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasLabel">Comma</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <a class="brand" href="/">
+                    <img class="brand-logo">
+                </a>
+                <button type="button" class="btn-close" aria-label="Close">&times;</button>
             </div>
-            <div class="offcanvas-body pt-0 align-items-center">
-                <ul class="navbar-nav mx-auto align-items-lg-center" id="dynamicCategories"></ul>
+            <div class="offcanvas-body">
+                <ul id="dynamicCategories"></ul>
+            </div>
+            <div class="flex-center">
+                <button th:if="${session.isLoggedIn}" onclick="logout()" class="btn btn-light me-2">로그아웃</button>
+                <button th:if="${session.isLoggedIn}" onclick="navigateToPage('info')" class="btn">내정보</button>
+                <button th:unless="${session.isLoggedIn}" onclick="navigateToPage('login')" class="btn btn-light me-2">로그인</button>
+                <button th:unless="${session.isLoggedIn}" onclick="navigateToPage('register')" class="btn">회원 가입</button>
 
-<!--                <div class="mt-3 mt-lg-0 d-flex align-items-center">-->
-<!--                    <a href="/member-login" class="btn btn-light mx-2">로그인</a>-->
-<!--                    <a href="/member-register" class="btn btn-primary">회원 가입</a>-->
-<!--                </div>-->
-
-                <div class="mt-3 mt-lg-0 d-flex align-items-center">
-                    <a th:if="${session.isLoggedIn}" onclick="userLogout()" class="btn btn-light mx-2">로그아웃</a>
-                    <a th:if="${session.isLoggedIn}" href="/user-info" class="btn btn-primary">내정보</a>
-                    <a th:unless="${session.isLoggedIn}" href="/user-login" class="btn btn-light mx-2">로그인</a>
-                    <a th:unless="${session.isLoggedIn}" href="/user-register" class="btn btn-primary">회원 가입</a>
-                </div>
             </div>
         </div>
+    </div>
+
+    <div class="offcanvas-backdrop">
     </div>
 </nav>
 </body>

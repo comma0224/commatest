@@ -5,11 +5,12 @@ import com.comma.service.SessionService;
 import com.comma.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -24,29 +25,80 @@ public class UserController {
     @Autowired
     private SessionService sessionService;
 
-    @GetMapping("/user-login")
+    @GetMapping("/login")
     public ModelAndView loadUserLogin() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("user/user-login");
+        mv.setViewName("user/login");
         return mv;
     }
 
-    @GetMapping("/user-register")
+    @GetMapping("/register")
     public ModelAndView loadUserRegister() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("user/user-register");
+        mv.setViewName("user/register");
         return mv;
     }
 
-    @GetMapping("/user-info")
+    @GetMapping("/info")
     public ModelAndView loadUserInfo(HttpSession session) {
         ModelAndView mv = new ModelAndView();
 
         Long userKey = (Long) session.getAttribute("userKey");
         User user = userService.getUser(userKey);
         mv.addObject("user", user);
-        mv.setViewName("user/user-info");
+        mv.setViewName("user/info");
         return mv;
+    }
+
+    @GetMapping("/oauth")
+    public ModelAndView oauth(@RequestParam HashMap<String, String> request) {
+        ModelAndView mv = new ModelAndView();
+        String code = request.get("code");
+
+            // Kakao API에 요청을 보내 액세스 토큰을 받습니다.
+            String tokenUrl = "https://kauth.kakao.com/oauth/token";
+            RestTemplate restTemplate = new RestTemplate();
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("grant_type", "authorization_code");
+            params.add("client_id", "347a5f90cc44471068b6858fc5139c7f");
+            params.add("redirect_uri", "http://localhost/oauth");
+            params.add("code", code);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+
+            ResponseEntity<Map> responseEntity = restTemplate.exchange(tokenUrl, HttpMethod.POST, requestEntity, Map.class);
+            Map<String, String> responseBody = responseEntity.getBody();
+
+            String access_token = responseBody.get("access_token");
+
+
+
+        mv.addObject("access_token", access_token);
+
+        mv.setViewName("user/oauth");
+
+        return mv;
+    }
+
+    @GetMapping("/kakao")
+    public ModelAndView kakao(@RequestParam HashMap<String, String> request) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("user/kakao");
+
+        return mv;
+    }
+
+    @PostMapping("/logout")
+    @ResponseBody
+    public HashMap<String, Object> logout(HttpSession session) {
+        HashMap<String, Object> response = new HashMap<>();
+        sessionService.invalidateSession(session);
+
+        response.put("status", true);
+        response.put("message", "로그아웃 되었습니다.");
+        return response;
     }
 
     @PostMapping("/is-user-id-exists")
@@ -165,18 +217,4 @@ public class UserController {
 
         return response;
     }
-
-    @PostMapping("/user-logout")
-    @ResponseBody
-    public HashMap<String, Object> logout(HttpSession session) {
-        HashMap<String, Object> response = new HashMap<>();
-        sessionService.invalidateSession(session);
-
-        response.put("status", true);
-        response.put("message", "로그아웃 되었습니다.");
-        return response;
-    }
-
-
-
 }

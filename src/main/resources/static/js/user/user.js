@@ -1,18 +1,68 @@
 $(document).ready(function() {
     'use strict';
 
+    $('#kakao').on('click', function() {
+        // Open a new popup window
+        var popup = window.open('/kakao', 'kakaoPopup',  'width=400, height=600');
+
+        // Ensure the popup remains in focus
+        if (popup) {
+            popup.focus();
+        }
+    });
+
     // 각 인풋박스에 onChange 이벤트를 추가
     $('input, select').on('change', function() {
         inputValidity(this);
     });
 });
 
+function oauth(code) {
+    $('#user-register').show();
+
+    var data = {
+        grant_type : 'authorization_code',
+        client_id : '347a5f90cc44471068b6858fc5139c7f',
+        redirect_uri : 'http://localhost/oauth',
+        code : code
+    }
+    console.log("인가코드 ==> "+ code);
+
+    $.ajax({
+        type : "POST"
+        , url : 'https://kauth.kakao.com/oauth/token'
+        , data : data
+        , contentType:'application/x-www-form-urlencoded;charset=utf-8'
+        , dataType: null
+        , success : function(response) {
+            Kakao.Auth.setAccessToken(response.access_token);
+            console.log("access_token ==> "+ response.access_token);
+        }
+        ,error : function(jqXHR, error) {
+
+        }
+    });
+
+    Kakao.API.request({
+        url: '/v2/user/me'
+    })
+        .then(function(res) {
+            console.log("res  ==> " + res.id);
+        })
+        .catch(function(err) {
+            alert(
+                'failed to request user information: ' + JSON.stringify(err)
+            );
+        });
+
+}
+
 function inputValidity(input) {
     var input = $(input);
     var inputId = input.attr('id');
     var value = input.val();
     //var feedback = input.next('.feedback');
-    var feedback = input.closest('.mb-3').find('.feedback').hide();
+    var feedback = input.closest('.input-area').find('.feedback').hide();
 
     input.removeClass('is-valid is-invalid');
     feedback.removeClass('valid-feedback invalid-feedback');
@@ -115,7 +165,7 @@ function inputValidity(input) {
 
                 // 영문과 숫자 체크
                 if (!idPattern.test(value)) {
-                    feedback.text('아이디는 6자 이상 적어주세요').addClass('invalid-feedback').show();
+                    feedback.text('아이디는 6자 이상 영문과 숫자로만 적어주세요').addClass('invalid-feedback').show();
                     input.addClass('is-invalid');
                     resolve(false);
                     break;
@@ -135,7 +185,7 @@ function inputValidity(input) {
                 }
                 // 비밀번호 유효성 체크
                 if (!passwordPattern.test(value)) {
-                    feedback.text('비밀번호를 8자 이상 적어주세요.').addClass('invalid-feedback').show();
+                    feedback.text('비밀번호는 8자리 이상 영문, 숫자, 특수문자를 포함해야 합니다.').addClass('invalid-feedback').show();
                     input.addClass('is-invalid');
                     resolve(false);
                     break;
